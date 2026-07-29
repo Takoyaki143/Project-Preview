@@ -1,387 +1,461 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yun's Portfolio - E-commerce Visual Design</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yun's Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #151515;
-            --bg-hover: #1f1f1f;
-            --text-primary: #e8e8e8;
-            --text-secondary: #a0a0a0;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border: #2a2a2a;
-        }
+:root{
+  --bg:#fbfaf8;
+  --surface:#ffffff;
+  --line:#e8e5e0;
+  --line-soft:#f0edE8;
+  --ink:#1a1a18;
+  --ink-2:#6e6a64;
+  --ink-3:#a39e96;
+  --shadow:0 1px 2px rgba(26,26,24,.04), 0 8px 24px rgba(26,26,24,.06);
+  --shadow-lg:0 2px 4px rgba(26,26,24,.05), 0 18px 44px rgba(26,26,24,.11);
+  --r:16px;
+  --max:1160px;
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC',sans-serif;
+  background:var(--bg);color:var(--ink);
+  line-height:1.7;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
 
-        header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-        .logo { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); text-decoration: none; }
-        .nav-right { display: flex; align-items: center; gap: 2rem; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+/* ── NAV ── */
+.nav{position:fixed;top:1.25rem;left:0;right:0;z-index:200;display:flex;justify-content:center;padding:0 1rem}
+.nav-inner{
+  display:flex;align-items:center;gap:.35rem;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid rgba(232,229,224,.9);border-radius:999px;
+  padding:.4rem .5rem;box-shadow:0 4px 20px rgba(26,26,24,.07);
+  transition:box-shadow .3s;
+}
+.nav a.nav-link,.nav .lang-btn{
+  padding:.42rem 1.05rem;border-radius:999px;font-size:.82rem;
+  letter-spacing:.09em;text-transform:uppercase;font-weight:600;
+  color:var(--ink-2);transition:.25s;background:none;border:none;cursor:pointer;
+  font-family:inherit;white-space:nowrap;
+}
+.nav a.nav-link:hover,.nav .lang-btn:hover{color:var(--ink);background:var(--bg)}
+.nav a.nav-link.active{background:var(--ink);color:#fff}
+.nav-div{width:1px;height:16px;background:var(--line);margin:0 .3rem}
+.lang-btn{font-size:.72rem!important;padding:.42rem .6rem!important}
+.lang-btn.active{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
 
-        /* Language switch */
-        .lang-switch { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; flex-shrink: 0; }
-        .lang-btn {
-            padding: 0.3rem 0.7rem; background: transparent; border: none;
-            color: var(--text-secondary); cursor: pointer; font-size: 0.8rem;
-            transition: all 0.25s; font-family: inherit;
-        }
-        .lang-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .lang-btn.active { background: #9a9a9a; color: #151515; }
+/* ── HERO ── */
+.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('images/Portfolio_info_images/index_banner.jpg');
+  background-size:cover;background-position:center;background-color:#d8d4ce;
+  transform:scale(1.04);animation:heroIn 1.6s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes heroIn{to{transform:scale(1)}}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,250,248,.34) 0%,rgba(251,250,248,.18) 42%,rgba(251,250,248,.86) 82%,var(--bg) 100%)}
+.hero-in{position:relative;z-index:2;text-align:center;padding:0 1.5rem;max-width:760px}
+.hero h1{
+  font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;letter-spacing:-.035em;
+  line-height:1.02;text-transform:uppercase;
+  text-shadow:0 2px 30px rgba(255,255,255,.55);
+}
+.hero p{
+  margin-top:1.4rem;font-size:clamp(.9rem,1.6vw,1.05rem);color:#3a3733;
+  line-height:1.9;max-width:520px;margin-left:auto;margin-right:auto;
+  text-shadow:0 1px 14px rgba(255,255,255,.7);
+}
+.scroll-cue{
+  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);z-index:3;
+  text-align:center;color:var(--ink-2);font-size:.72rem;letter-spacing:.28em;
+  text-transform:uppercase;font-weight:600;
+}
+.scroll-cue svg{margin:.5rem auto 0;animation:bob 2.4s ease-in-out infinite;opacity:.6}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+/* ── SECTION ── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem}
+.sec{padding:5.5rem 0 2rem}
+.sec-head{text-align:center;margin-bottom:3rem}
+.sec-head h2{
+  font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:.02em;
+  text-transform:uppercase;display:inline-block;position:relative;padding-bottom:.7rem;
+}
+.sec-head h2::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:3px;background:var(--ink);border-radius:2px}
+.sec-head p{margin-top:.9rem;color:var(--ink-3);font-size:.88rem;letter-spacing:.04em}
 
-        .hero { position: relative; text-align: center; padding: 0; margin-bottom: 4rem; }
-        .hero-image {
-            width: 100%; height: 500px;
-            background-size: cover; background-position: center;
-            background-image: url('images/Portfolio_info_images/index_banner.jpg');
-            position: relative;
-        }
-        .hero-image::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
-        .hero-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 150px; background: linear-gradient(to bottom, transparent, var(--bg-primary)); }
-        .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; width: 100%; padding: 0 2rem; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
-        .hero p { font-size: 1.25rem; color: #e8e8e8; max-width: 600px; margin: 0 auto; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+/* ── PROJECT RAIL ── */
+.rail-outer{position:relative}
+.rail{
+  display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:.5rem .25rem 2rem;scroll-padding-left:.25rem;
+  scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.pcard{
+  flex:0 0 clamp(260px,31%,340px);scroll-snap-align:start;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+}
+.pcard:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}
+.pcard-img{aspect-ratio:4/3;background:#e4e0da center/cover no-repeat;overflow:hidden}
+.pcard-img i{display:block;width:100%;height:100%;background:inherit;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.pcard:hover .pcard-img i{transform:scale(1.06)}
+.pcard-body{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.45rem}
+.pcard-body h3{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
+.pcard-body p{font-size:.84rem;color:var(--ink-2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-foot{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}
+.tag{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:.22rem .7rem}
+.arrow-i{font-size:1.1rem;color:var(--ink-3);transition:transform .3s,color .3s}
+.pcard:hover .arrow-i{transform:translateX(5px);color:var(--ink)}
 
-        .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-        .section-label { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap; }
-        .section-line { flex: 1; height: 1px; background: var(--border); }
+.rnav{
+  position:absolute;top:calc(50% - 1.6rem);transform:translateY(-50%);z-index:20;
+  width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);
+  border:1px solid var(--line);box-shadow:var(--shadow);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--ink);
+  transition:.25s;backdrop-filter:blur(8px);
+}
+.rnav:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rnav:disabled{opacity:0;pointer-events:none}
+.rnav.prev{left:-14px}
+.rnav.next{right:-14px}
 
-        .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .project-card {
-            background: var(--bg-secondary); border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none; color: inherit; display: block;
-        }
-        .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
-        .project-card-image { width: 100%; height: 210px; background-size: cover; background-position: center; background-color: var(--bg-hover); }
-        .project-card-content { padding: 1.25rem 1.5rem 1.5rem; }
-        .project-card-content h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
-        .project-card-content p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
-        .project-card-tag { display: inline-block; margin-top: 1rem; padding: 0.25rem 0.7rem; background: var(--bg-hover); border: 1px solid var(--border); border-radius: 4px; font-size: 0.78rem; color: var(--text-secondary); }
+/* ── FILTER ── */
+.filter{display:flex;align-items:center;justify-content:center;gap:.2rem;flex-wrap:wrap;margin-bottom:3rem}
+.fbtn{
+  background:none;border:none;font-family:inherit;cursor:pointer;
+  padding:.45rem 1.05rem;border-radius:999px;font-size:.86rem;font-weight:600;
+  color:var(--ink-3);letter-spacing:.04em;transition:.25s;
+}
+.fbtn:hover{color:var(--ink)}
+.fbtn.active{background:var(--ink);color:#fff}
+.fsep{color:var(--line);font-size:.9rem;user-select:none}
 
-        .category-filter { display: flex; gap: 1rem; justify-content: center; margin-bottom: 4rem; flex-wrap: wrap; }
-        .category-btn { padding: 0.5rem 1.25rem; background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-secondary); border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 1rem; font-family: inherit; }
-        .category-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .category-btn.active { background: #9a9a9a; color: #151515; border-color: #9a9a9a; }
+/* ── MARQUEE ROWS ── */
+.mrow{margin-bottom:3.2rem;animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mrow-head{max-width:var(--max);margin:0 auto 1.1rem;padding:0 2rem;display:flex;align-items:baseline;gap:.9rem}
+.mrow-head h3{font-size:1rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.mrow-head span{font-size:.72rem;color:var(--ink-3);letter-spacing:.1em}
+.mrow-head .ln{flex:1;height:1px;background:var(--line)}
+.marquee{
+  overflow:hidden;padding:.6rem 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.mtrack{display:flex;gap:1.1rem;width:max-content;animation:slide linear infinite}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee:hover .mtrack{animation-play-state:paused}
+.mitem{
+  flex:0 0 auto;width:clamp(210px,24vw,290px);aspect-ratio:4/3;
+  border-radius:12px;overflow:hidden;background:#e4e0da;position:relative;
+  border:1px solid var(--line);cursor:pointer;
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+}
+.mitem img{width:100%;height:100%;object-fit:cover;transition:transform .7s,filter .4s}
+.mitem:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow-lg);z-index:5}
+.mitem:hover img{transform:scale(1.05)}
+.mitem-cap{
+  position:absolute;inset:auto 0 0 0;padding:1.6rem .9rem .8rem;
+  background:linear-gradient(transparent,rgba(20,19,17,.82));
+  color:#fff;font-size:.82rem;font-weight:600;letter-spacing:.02em;
+  opacity:0;transform:translateY(6px);transition:.35s;
+}
+.mitem:hover .mitem-cap{opacity:1;transform:none}
 
-        .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .work-item { background: var(--bg-secondary); border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--border); cursor: pointer; text-decoration: none; color: inherit; display: block; }
-        .work-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-        .work-thumbnail { width: 100%; height: 250px; background-size: cover; background-position: center; background-color: var(--bg-hover); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 3rem; }
-        .work-info { padding: 1.5rem; }
-        .work-info h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
-        .work-info p { color: var(--text-secondary); font-size: 0.95rem; }
+/* ── ABOUT / CONTACT ── */
+.panel{display:none}
+.panel.on{display:block}
+.about{max-width:720px;margin:0 auto;padding-top:7rem}
+.about h2{font-size:2.2rem;font-weight:800;letter-spacing:-.01em;margin-bottom:2rem}
+.about p{color:var(--ink-2);font-size:1rem;margin-bottom:1.15rem;line-height:1.95}
+.about h3{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:3rem 0 1.1rem}
+.skills{display:flex;gap:.55rem;flex-wrap:wrap}
+.skill{padding:.42rem 1rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.83rem;color:var(--ink-2);transition:.25s}
+.skill:hover{border-color:var(--ink);color:var(--ink)}
+.contact{max-width:520px;margin:0 auto;padding-top:7rem;text-align:center}
+.contact h2{font-size:2.2rem;font-weight:800;margin-bottom:.8rem}
+.contact>p{color:var(--ink-2);margin-bottom:2.4rem}
+.clink{
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  padding:1.05rem 2rem;background:var(--surface);border:1px solid var(--line);
+  border-radius:999px;font-size:.95rem;transition:.3s;box-shadow:var(--shadow);
+}
+.clink:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-3px)}
 
-        .about-content { max-width: 800px; margin: 0 auto; }
-        .about-content h2 { font-size: 2.5rem; margin-bottom: 2rem; }
-        .about-content p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
-        .skills { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
-        .skill-tag { padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; color: var(--text-secondary); }
+/* ── WAVE + FOOTER ── */
+.wave{display:block;width:100%;height:80px;margin-top:5rem}
+.wave path{fill:none;stroke:var(--line);stroke-width:1.5}
+footer{background:var(--surface);border-top:1px solid var(--line);text-align:center;padding:2.4rem 1rem;color:var(--ink-3);font-size:.8rem;letter-spacing:.05em}
 
-        .contact-content { max-width: 600px; margin: 0 auto; text-align: center; }
-        .contact-content h2 { font-size: 2.5rem; margin-bottom: 2rem; }
-        .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
-        .contact-link { padding: 1rem 2rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .contact-link:hover { background: var(--accent); border-color: var(--accent); }
-
-        .hidden { display: none; }
-
-        footer { text-align: center; padding: 2rem; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 4rem; }
-
-        @media (max-width: 900px) {
-            .project-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            nav { flex-wrap: wrap; }
-            .nav-right { gap: 1rem; width: 100%; justify-content: space-between; }
-            .hero-image { height: 400px; }
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            .work-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 1rem; }
-            .project-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav{top:.7rem}
+  .nav-inner{padding:.3rem .35rem}
+  .nav a.nav-link{padding:.38rem .75rem;font-size:.74rem}
+  .hero{height:88svh;min-height:480px}
+  .sec{padding:4rem 0 1.5rem}
+  .wrap,.mrow-head{padding:0 1.25rem}
+  .rail{padding-left:1.25rem;padding-right:1.25rem;margin:0 -1.25rem}
+  .pcard{flex:0 0 78%}
+  .rnav{display:none}
+  .about,.contact{padding-top:6rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .mtrack{animation:none}
+  .hero-bg{animation:none;transform:none}
+  .scroll-cue svg{animation:none}
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#home" class="logo">Yun's Portfolio</a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link active" data-zh="作品展示" data-en="Work">作品展示</a></li>
-                    <li><a href="#about" class="nav-link" data-zh="關於我" data-en="About">關於我</a></li>
-                    <li><a href="#contact" class="nav-link" data-zh="聯絡方式" data-en="Contact">聯絡方式</a></li>
-                </ul>
-                <div class="lang-switch">
-                    <button class="lang-btn" data-lang="zh">中</button>
-                    <button class="lang-btn" data-lang="en">EN</button>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Home -->
-    <section id="home" class="page-section">
-        <div class="container">
-            <div class="hero">
-                <div class="hero-image">
-                    <div class="hero-content">
-                        <h1 data-zh="Graphic Designer" data-en="E-commerce Visual Designer">Graphic Designer</h1>
-                        <p data-zh="專注於 3C 電商視覺設計、3D 建模與影片製作，打造專業精緻的品牌視覺體驗。"
-                           data-en="Product visuals, 3D renders and video for consumer electronics brands — the kind of work that makes a listing worth clicking.">專注於 3C 電商視覺設計、3D 建模與影片製作，打造專業精緻的品牌視覺體驗。</p>
-                    </div>
-                </div>
-            </div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-link active" data-zh="作品" data-en="Work">作品</a>
+    <a href="#about" class="nav-link" data-zh="關於" data-en="About">關於</a>
+    <a href="#contact" class="nav-link" data-zh="聯絡" data-en="Contact">聯絡</a>
+    <span class="nav-div"></span>
+    <button class="lang-btn" data-lang="zh">中</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</nav>
 
-            <div class="section-header">
-                <span class="section-label" data-zh="Project" data-en="Project">Project</span>
-                <div class="section-line"></div>
-            </div>
-            <div class="project-grid" id="projectGrid"></div>
+<!-- HOME -->
+<section id="home" class="panel on">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-in">
+      <h1>Yun's Portfolio</h1>
+      <p data-zh="3C 電商視覺設計 · 3D 建模渲染 · 影片製作　專注於讓商品在貨架上被點開的那一秒。"
+         data-en="Product visuals, 3D renders and video for consumer electronics — the kind of work that makes a listing worth clicking.">
+        3C 電商視覺設計 · 3D 建模渲染 · 影片製作　專注於讓商品在貨架上被點開的那一秒。
+      </p>
+    </div>
+    <div class="scroll-cue">
+      <span data-zh="LET'S START" data-en="LET'S START">LET'S START</span>
+      <svg width="22" height="13" viewBox="0 0 22 13" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M1 1l10 10L21 1"/>
+      </svg>
+    </div>
+  </div>
 
-            <div class="section-header" style="margin-top: 3rem;">
-                <span class="section-label" data-zh="Skill" data-en="Skill">Skill</span>
-                <div class="section-line"></div>
-            </div>
-            <div class="category-filter">
-                <button class="category-btn active" data-category="all" data-zh="全部作品" data-en="All">全部作品</button>
-                <button class="category-btn" data-category="video" data-zh="影片" data-en="Video">影片</button>
-                <button class="category-btn" data-category="3d" data-zh="3D" data-en="3D">3D</button>
-                <button class="category-btn" data-category="graphic" data-zh="視覺設計" data-en="Visual Design">視覺設計</button>
-            </div>
-            <div class="work-grid" id="workGrid"></div>
+  <!-- PROJECTS -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Projects</h2>
+        <p data-zh="完整專案：從策略、視覺到上線" data-en="Full case studies — strategy, visuals, launch">完整專案：從策略、視覺到上線</p>
+      </div>
+      <div class="rail-outer">
+        <button class="rnav prev" id="rPrev" aria-label="Previous">‹</button>
+        <div class="rail" id="projectRail"></div>
+        <button class="rnav next" id="rNext" aria-label="Next">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILL -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Skill</h2>
+        <p data-zh="依類別瀏覽　·　點擊任一張進入該類作品說明" data-en="Browse by craft — click any frame for the full breakdown">依類別瀏覽　·　點擊任一張進入該類作品說明</p>
+      </div>
+      <div class="filter" id="filter"></div>
+    </div>
+    <div id="rows"></div>
+  </section>
+
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0,46 C240,4 380,74 720,44 C1060,14 1220,72 1440,34"/>
+    <path d="M0,58 C240,16 380,86 720,56 C1060,26 1220,84 1440,46" opacity=".5"/>
+  </svg>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="panel">
+  <div class="wrap about">
+    <h2 data-zh="關於我" data-en="About">關於我</h2>
+    <p data-zh="嗨！我是 Yun。擁有五年 3C 電商領域的實務經驗，專注於視覺設計。"
+       data-en="Hi, I'm Yun — five years designing for consumer electronics e-commerce.">嗨！我是 Yun。擁有五年 3C 電商領域的實務經驗，專注於視覺設計。</p>
+    <p data-zh="工作經驗涵蓋電商品牌視覺設計、品牌網站管理、廣告素材設計以及 3D 產品建模渲染；熟練使用 Adobe Creative Suite 與 Blender，並將 AI 工具整合至工作流程中。"
+       data-en="My work spans brand visuals, site management, ad creative and 3D product rendering, using Adobe CS and Blender with AI tools folded into the workflow.">工作經驗涵蓋電商品牌視覺設計、品牌網站管理、廣告素材設計以及 3D 產品建模渲染；熟練使用 Adobe Creative Suite 與 Blender，並將 AI 工具整合至工作流程中。</p>
+    <p data-zh="同時也在行銷工作中獨立投放廣告、分析成效，隨時調整與控管素材表現。"
+       data-en="I also run ad campaigns end to end — placement, performance analysis, and creative iteration.">同時也在行銷工作中獨立投放廣告、分析成效，隨時調整與控管素材表現。</p>
+    <h3>Skills</h3>
+    <div class="skills">
+      <span class="skill">Illustrator</span><span class="skill">Photoshop</span>
+      <span class="skill">Premiere Pro</span><span class="skill">After Effects</span>
+      <span class="skill">Blender 3D</span><span class="skill">電商視覺</span>
+      <span class="skill">品牌設計</span><span class="skill">影片製作</span><span class="skill">AI 工具</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="panel">
+  <div class="wrap contact">
+    <h2 data-zh="聯絡方式" data-en="Get in touch">聯絡方式</h2>
+    <p data-zh="歡迎來信討論合作與接案需求" data-en="Open to freelance projects and full-time roles.">歡迎來信討論合作與接案需求</p>
+    <a href="mailto:yueying314@gmail.com" class="clink">yueying314@gmail.com</a>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" style="margin-top:6rem">
+  <path d="M0,46 C240,4 380,74 720,44 C1060,14 1220,72 1440,34"/>
+</svg>
+<footer><p>&copy; 2024 Yunting-Wu. All rights reserved.</p></footer>
+
+<script>
+/* ── i18n ── */
+let lang = localStorage.getItem('lang') ||
+  ((navigator.language||'').toLowerCase().startsWith('zh') ? 'zh' : 'en');
+const t = f => !f ? '' : (typeof f === 'string' ? f : (f[lang] || f.zh || f.en || ''));
+const CAT = {
+  zh:{video:'影片',   '3d':'3D', graphic:'視覺設計', all:'全部'},
+  en:{video:'Video',  '3d':'3D', graphic:'Visual Design', all:'All'}
+};
+function applyLang(){
+  document.querySelectorAll('[data-zh]').forEach(el=>{
+    const v = el.dataset[lang]; if(v!==undefined) el.textContent = v;
+  });
+  document.documentElement.lang = lang==='zh' ? 'zh-TW' : 'en';
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>{
+  lang = b.dataset.lang; localStorage.setItem('lang',lang);
+  applyLang(); render();
+}));
+
+/* ── DATA ── */
+let works = [];
+const DETAIL = id => `work.html?id=${encodeURIComponent(id)}`;
+
+async function load(){
+  try{ works = await (await fetch('works.json')).json(); }
+  catch(e){ console.error(e); works = []; }
+  render();
+}
+
+function render(){ buildProjects(); buildFilter(); buildRows(activeCat); }
+
+/* ── PROJECTS RAIL ── */
+function buildProjects(){
+  const rail = document.getElementById('projectRail');
+  rail.innerHTML = '';
+  works.filter(w=>w.type==='project').forEach(w=>{
+    const tagList = Array.isArray(w.tags) ? w.tags : (w.tags?.[lang] || w.tags?.zh || []);
+    const tag = tagList[0] || CAT[lang][w.category] || '';
+    const a = document.createElement('a');
+    a.className = 'pcard';
+    a.href = DETAIL(w.id);
+    a.innerHTML = `
+      <div class="pcard-img" style="${w.thumbnail?`background-image:url('${w.thumbnail}')`:''}"><i></i></div>
+      <div class="pcard-body">
+        <h3>${t(w.title)}</h3>
+        <p>${t(w.description)}</p>
+        <div class="pcard-foot">
+          <span class="tag">${tag}</span>
+          <span class="arrow-i">→</span>
         </div>
-    </section>
+      </div>`;
+    rail.appendChild(a);
+  });
+  syncRail();
+}
 
-    <!-- About -->
-    <section id="about" class="page-section hidden">
-        <div class="container">
-            <div class="about-content">
-                <h2 data-zh="關於我" data-en="About">關於我</h2>
+const rail = () => document.getElementById('projectRail');
+function syncRail(){
+  const r = rail(); if(!r) return;
+  const p = document.getElementById('rPrev'), n = document.getElementById('rNext');
+  p.disabled = r.scrollLeft < 8;
+  n.disabled = r.scrollLeft > r.scrollWidth - r.clientWidth - 8;
+}
+document.getElementById('rPrev').onclick = () => step(-1);
+document.getElementById('rNext').onclick = () => step(1);
+function step(dir){
+  const r = rail(), card = r.querySelector('.pcard');
+  const d = card ? card.getBoundingClientRect().width + 24 : 340;
+  r.scrollBy({left: d*dir, behavior:'smooth'});
+}
+document.getElementById('projectRail').addEventListener('scroll', syncRail);
+window.addEventListener('resize', syncRail);
 
-                <p data-zh="嗨！我是Yun!"
-                   data-en="Hi, I'm Yun.">嗨！我是Yun!</p>
+/* ── FILTER ── */
+let activeCat = 'all';
+function buildFilter(){
+  const cats = ['all', ...['video','3d','graphic'].filter(c => works.some(w=>w.type!=='project' && w.category===c))];
+  const box = document.getElementById('filter');
+  box.innerHTML = cats.map((c,i)=>
+    (i? '<span class="fsep">/</span>':'') +
+    `<button class="fbtn${c===activeCat?' active':''}" data-cat="${c}">${CAT[lang][c]||c}</button>`
+  ).join('');
+  box.querySelectorAll('.fbtn').forEach(b=>b.onclick=()=>{
+    activeCat = b.dataset.cat;
+    box.querySelectorAll('.fbtn').forEach(x=>x.classList.toggle('active', x===b));
+    buildRows(activeCat);
+  });
+}
 
-                <p data-zh="我擁有五年 3C 電商領域的實務經驗，專注於視覺設計。"
-                   data-en="I'm a visual designer with five years in consumer electronics e-commerce.">我擁有五年 3C 電商領域的實務經驗，專注於視覺設計。</p>
+/* ── MARQUEE ROWS ── */
+function buildRows(cat){
+  const host = document.getElementById('rows');
+  host.innerHTML = '';
+  const skills = works.filter(w=>w.type!=='project');
+  const cats = cat==='all' ? ['video','3d','graphic'] : [cat];
 
-                <p data-zh="其工作經驗涵蓋電商品牌視覺設計、品牌網站管理、廣告素材設計以及 3D 產品建模渲染；同時，熟練使用 Adobe Creative Suite（Illustrator、Photoshop、Premiere、After Effects）以及 Blender，並將 AI 工具整合至工作流程中，提升設計效率與品質。"
-                   data-en="My work covers brand and product visuals, running brand websites, ad creatives, and 3D product modeling and rendering. Day to day I live in Illustrator, Photoshop, Premiere, After Effects and Blender — and I use AI tools to speed up iteration, never to replace the design work itself.">其工作經驗涵蓋電商品牌視覺設計、品牌網站管理、廣告素材設計以及 3D 產品建模渲染；同時，熟練使用 Adobe Creative Suite（Illustrator、Photoshop、Premiere、After Effects）以及 Blender，並將 AI 工具整合至工作流程中，提升設計效率與品質。</p>
+  cats.forEach(c=>{
+    const items = skills.filter(w=>w.category===c);
+    if(!items.length) return;
 
-                <p data-zh="同時，我也在行銷工作中學習，獨立投放廣告、分析成效，隨時做出廣告素材的調整與控管。"
-                   data-en="I've also handled the marketing side — running the ads myself, reading the numbers, and reworking creatives based on what the data actually says.">同時，我也在行銷工作中學習，獨立投放廣告、分析成效，隨時做出廣告素材的調整與控管。</p>
+    // 每列至少 6 張才滾得順；不足時複製補滿
+    let pool = items.slice();
+    while(pool.length < 6) pool = pool.concat(items);
 
-                <p data-zh="我致力於為品牌打造專業、精緻，或是具有親和力的視覺形象，透過設計提升品牌價值與用戶體驗。"
-                   data-en="Polished and premium, or warm and approachable — whichever a brand needs, my job is to make the visuals do the selling.">我致力於為品牌打造專業、精緻，或是具有親和力的視覺形象，透過設計提升品牌價值與用戶體驗。</p>
+    const cells = pool.map(w=>`
+      <a class="mitem" href="${DETAIL(w.id)}">
+        <img src="${w.thumbnail||''}" alt="${t(w.title)}" loading="lazy">
+        <span class="mitem-cap">${t(w.title)}</span>
+      </a>`).join('');
 
-                <h3 style="margin-top: 3rem; margin-bottom: 1rem;" data-zh="專業技能" data-en="Skills">專業技能</h3>
-                <div class="skills">
-                    <span class="skill-tag">Adobe Illustrator</span>
-                    <span class="skill-tag">Adobe Photoshop</span>
-                    <span class="skill-tag">Adobe Premiere</span>
-                    <span class="skill-tag">Adobe After Effects</span>
-                    <span class="skill-tag">Blender 3D</span>
-                    <span class="skill-tag" data-zh="電商視覺設計" data-en="E-commerce Visuals">電商視覺設計</span>
-                    <span class="skill-tag" data-zh="品牌設計" data-en="Brand Design">品牌設計</span>
-                    <span class="skill-tag" data-zh="影片製作" data-en="Video Production">影片製作</span>
-                    <span class="skill-tag" data-zh="AI工具運用" data-en="AI-assisted Workflow">AI工具運用</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    const row = document.createElement('div');
+    row.className = 'mrow';
+    row.innerHTML = `
+      <div class="mrow-head">
+        <h3>${CAT[lang][c]||c}</h3>
+        <span>${String(items.length).padStart(2,'0')}</span>
+        <div class="ln"></div>
+      </div>
+      <div class="marquee">
+        <div class="mtrack" style="animation-duration:${pool.length*5.5}s">${cells}${cells}</div>
+      </div>`;
+    host.appendChild(row);
+  });
+}
 
-    <!-- Contact -->
-    <section id="contact" class="page-section hidden">
-        <div class="container">
-            <div class="contact-content">
-                <h2 data-zh="聯絡方式" data-en="Contact">聯絡方式</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;"
-                   data-zh="歡迎與我聯繫討論合作機會"
-                   data-en="Got a project in mind? I'd love to hear about it.">歡迎與我聯繫討論合作機會</p>
-                <div class="contact-links">
-                    <a href="mailto:yueying314@gmail.com" class="contact-link">
-                        <span>📧</span>
-                        <span>yueying314@gmail.com</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ── PANEL NAV ── */
+document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',e=>{
+  e.preventDefault();
+  const id = l.getAttribute('href').slice(1);
+  document.querySelectorAll('.nav-link').forEach(x=>x.classList.toggle('active', x===l));
+  document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on', s.id===id));
+  window.scrollTo({top:0,behavior:'instant'});
+}));
 
-    <footer>
-        <p>&copy; 2024 Yun's Portfolio. All rights reserved.</p>
-    </footer>
-
-    <script>
-        /* ── i18n ── */
-        let currentLang = localStorage.getItem('lang')
-            || (navigator.language && navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en');
-
-        function t(field) {
-            if (field === null || field === undefined) return '';
-            if (typeof field === 'string') return field;
-            return field[currentLang] || field.zh || field.en || '';
-        }
-
-        function applyStaticLang() {
-            document.querySelectorAll('[data-zh]').forEach(el => {
-                const val = el.dataset[currentLang];
-                if (val !== undefined) el.textContent = val;
-            });
-            document.documentElement.lang = currentLang === 'zh' ? 'zh-TW' : 'en';
-            document.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.lang === currentLang);
-            });
-        }
-
-        function setLang(lang) {
-            currentLang = lang;
-            localStorage.setItem('lang', lang);
-            applyStaticLang();
-            displayProjects();
-            const active = document.querySelector('.category-btn.active');
-            displayWorks(active ? active.dataset.category : 'all');
-        }
-
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => setLang(btn.dataset.lang));
-        });
-
-        /* ── Works ── */
-        let allWorks = [];
-
-        async function loadWorks() {
-            try {
-                const response = await fetch('works.json');
-                allWorks = await response.json();
-            } catch (error) {
-                console.error('Error loading works:', error);
-                allWorks = [];
-            }
-            applyStaticLang();
-            displayProjects();
-            displayWorks('all');
-        }
-
-        function displayProjects() {
-            const grid = document.getElementById('projectGrid');
-            grid.innerHTML = '';
-
-            allWorks.filter(w => w.type === 'project').forEach(work => {
-                const el = document.createElement('a');
-                el.className = 'project-card';
-                el.href = `work.html?id=${work.id}`;
-
-                const thumbStyle = work.thumbnail ? `background-image: url('${work.thumbnail}')` : '';
-
-                let tag = '';
-                if (work.tags) {
-                    const list = Array.isArray(work.tags) ? work.tags : (work.tags[currentLang] || work.tags.zh || []);
-                    tag = list[0] || '';
-                }
-                if (!tag) tag = getCategoryName(work.category);
-
-                el.innerHTML = `
-                    <div class="project-card-image" style="${thumbStyle}"></div>
-                    <div class="project-card-content">
-                        <h3>${t(work.title)}</h3>
-                        <p>${t(work.description)}</p>
-                        <span class="project-card-tag">${tag}</span>
-                    </div>`;
-                grid.appendChild(el);
-            });
-        }
-
-        function displayWorks(category) {
-            const grid = document.getElementById('workGrid');
-            grid.innerHTML = '';
-
-            const skillWorks = allWorks.filter(w => w.type !== 'project');
-            const filtered = category === 'all'
-                ? skillWorks
-                : skillWorks.filter(w => w.category === category);
-
-            filtered.forEach(work => {
-                const el = document.createElement('a');
-                el.className = 'work-item';
-                el.href = `work.html?id=${work.id}`;
-                el.dataset.category = work.category;
-
-                const thumbStyle = work.thumbnail ? `background-image: url('${work.thumbnail}')` : '';
-
-                el.innerHTML = `
-                    <div class="work-thumbnail" style="${thumbStyle}">
-                        ${!work.thumbnail ? (work.emoji || '') : ''}
-                    </div>
-                    <div class="work-info">
-                        <h3>${t(work.title)}</h3>
-                        <p>${t(work.description)}</p>
-                    </div>`;
-                grid.appendChild(el);
-            });
-        }
-
-        function getCategoryName(category) {
-            const map = {
-                zh: { 'video': '影片', '3d': '3D', 'graphic': '視覺設計' },
-                en: { 'video': 'Video', '3d': '3D', 'graphic': 'Visual Design' }
-            };
-            return map[currentLang][category] || category;
-        }
-
-        /* ── Navigation ── */
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                document.querySelectorAll('.page-section').forEach(s => {
-                    s.id === targetId ? s.classList.remove('hidden') : s.classList.add('hidden');
-                });
-            });
-        });
-
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                displayWorks(btn.dataset.category);
-            });
-        });
-
-        loadWorks();
-    </script>
+applyLang();
+load();
+</script>
 </body>
 </html>
