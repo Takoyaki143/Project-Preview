@@ -332,10 +332,10 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
 
 <script>
 /* ══ 可調設定 ══ */
-const DETAIL_PAGE = 'work.html';          // 詳細頁檔名（你的檔案若叫 work2.html 就改這裡）
-const GROUP_ORDER = ['graphic','3d','video'];   // 分組顯示順序（影片排最後）
+const DETAIL_PAGE = 'work.html';                 // 詳細頁檔名
+const GROUP_ORDER = ['graphic','3d','video'];    // 「全部」時的排列順序
 const SALES = {
-  id: 'Single-Page-3D-1',             // ← 改成你 works.json 裡銷售頁的 id
+  id: 'Single-Page-3D-1',
   items: [
     { img:'images/Single-Page-full-3D_02.png', title:{zh:'銷售頁 02',en:'Sales Page 02'}, note:{zh:'全頁長圖',en:'Full page'} },
     { img:'images/Single-Page-full-3D_03.png', title:{zh:'銷售頁 03',en:'Sales Page 03'}, note:{zh:'全頁長圖',en:'Full page'} },
@@ -352,67 +352,82 @@ const CAT = {
   en:{ all:'All',  graphic:'Visual Design', '3d':'3D', video:'Video' }
 };
 const UI = {
-  zh:{ hover:'HOVER 預覽' },
-  en:{ hover:'HOVER' }
+  zh:{ hover:'HOVER 預覽', empty:'此分類尚無作品' },
+  en:{ hover:'HOVER',      empty:'Nothing here yet' }
 };
+
 function applyLang(){
   document.querySelectorAll('[data-zh]').forEach(el=>{
-    const v = el.dataset[lang]; if(v!==undefined) el.textContent = v;
+    const v = el.dataset[lang];
+    if(v !== undefined) el.innerHTML = v;   // 用 innerHTML，文案裡可放 <br>
   });
   document.documentElement.lang = lang==='zh' ? 'zh-TW' : 'en';
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
 }
 document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>{
-  lang = b.dataset.lang; localStorage.setItem('lang',lang);
-  applyLang(); render();
+  lang = b.dataset.lang;
+  localStorage.setItem('lang', lang);
+  applyLang();
+  render();
 }));
 
 /* ══ DATA ══ */
 let works = [];
+let activeCat = 'all';
 const link = id => `${DETAIL_PAGE}?id=${encodeURIComponent(id)}`;
 
 async function load(){
-  try{ works = await (await fetch('works.json')).json(); }
-  catch(e){ console.error('works.json 載入失敗', e); works = []; }
+  try{
+    works = await (await fetch('works.json')).json();
+  }catch(e){
+    console.error('works.json 載入失敗', e);
+    works = [];
+  }
   render();
 }
-function render(){ buildProjects(); buildFilter(); buildGroups(activeCat); buildSales(); }
+
+function render(){
+  buildProjects();
+  buildFilter();
+  buildSkills(activeCat);
+  buildSales();
+}
 
 /* ══ PROJECTS ══ */
 function buildProjects(){
   const grid = document.getElementById('projectGrid');
-  grid.innerHTML = '';
-  works.filter(w=>w.type==='project').forEach(w=>{
+  const projects = works.filter(w=>w.type==='project');
+
+  grid.innerHTML = projects.map(w=>{
     const tags = Array.isArray(w.tags) ? w.tags : (w.tags?.[lang] || w.tags?.zh || []);
     const tag  = tags[0] || CAT[lang][w.category] || '';
-    const a = document.createElement('a');
-    a.className = 'pcard';
-    a.href = link(w.id);
-    a.innerHTML = `
-      <div class="pcard-img" style="${w.thumbnail?`background-image:url('${w.thumbnail}')`:''}"><i></i></div>
-      <div class="pcard-body">
-        <h3>${t(w.title)}</h3>
-        <p>${t(w.description)}</p>
-        <div class="pcard-foot"><span class="tag">${tag}</span><span class="arrow-i">→</span></div>
-      </div>`;
-    grid.appendChild(a);
-  });
+    return `
+      <a class="pcard" href="${link(w.id)}">
+        <div class="pcard-img" style="${w.thumbnail?`background-image:url('${w.thumbnail}')`:''}"><i></i></div>
+        <div class="pcard-body">
+          <h3>${t(w.title)}</h3>
+          <p>${t(w.description)}</p>
+          <div class="pcard-foot"><span class="tag">${tag}</span><span class="arrow-i">→</span></div>
+        </div>
+      </a>`;
+  }).join('');
 }
 
 /* ══ FILTER ══ */
-let activeCat = 'all';
 function buildFilter(){
   const has = c => works.some(w=>w.type!=='project' && w.category===c);
   const cats = ['all', ...GROUP_ORDER.filter(has)];
   const box = document.getElementById('filter');
+
   box.innerHTML = cats.map((c,i)=>
-    (i? '<span class="fsep">/</span>':'') +
+    (i ? '<span class="fsep">/</span>' : '') +
     `<button class="fbtn${c===activeCat?' active':''}" data-cat="${c}">${CAT[lang][c]||c}</button>`
   ).join('');
-  box.querySelectorAll('.fbtn').forEach(b=>b.onclick=()=>{
+
+  box.querySelectorAll('.fbtn').forEach(b=>b.onclick = ()=>{
     activeCat = b.dataset.cat;
     box.querySelectorAll('.fbtn').forEach(x=>x.classList.toggle('active', x===b));
-    buildGroups(activeCat);
+    buildSkills(activeCat);
   });
 }
 
@@ -421,13 +436,12 @@ function buildSkills(cat){
   const grid = document.getElementById('skillGrid');
   const skills = works.filter(w=>w.type!=='project');
 
-  // 依 GROUP_ORDER 排序，讓「全部」時視覺設計在前、影片在後
   const items = (cat==='all' ? skills : skills.filter(w=>w.category===cat))
     .slice()
-    .sort((a,b)=>GROUP_ORDER.indexOf(a.category)-GROUP_ORDER.indexOf(b.category));
+    .sort((a,b)=>GROUP_ORDER.indexOf(a.category) - GROUP_ORDER.indexOf(b.category));
 
   if(!items.length){
-    grid.innerHTML = `<p class="sempty">${lang==='zh'?'此分類尚無作品':'Nothing here yet'}</p>`;
+    grid.innerHTML = `<p class="sempty">${UI[lang].empty}</p>`;
     return;
   }
 
@@ -440,19 +454,6 @@ function buildSkills(cat){
         <p>${t(w.description)}</p>
       </div>
     </a>`).join('');
-}
-
-    const g = document.createElement('div');
-    g.className = 'group';
-    g.innerHTML = `
-      <div class="group-head">
-        <h3>${CAT[lang][c]||c}</h3>
-        <span class="num">${String(items.length).padStart(2,'0')}</span>
-        <div class="ln"></div>
-      </div>
-      <div class="sgrid">${cards}</div>`;
-    host.appendChild(g);
-  });
 }
 
 /* ══ SALES PAGE ══ */
@@ -468,12 +469,12 @@ function buildSales(){
 }
 
 /* ══ PANEL NAV ══ */
-document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',e=>{
+document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click', e=>{
   e.preventDefault();
   const id = l.getAttribute('href').slice(1);
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.toggle('active', x===l));
   document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on', s.id===id));
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:0, behavior:'instant'});
 }));
 
 applyLang();
