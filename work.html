@@ -21,6 +21,8 @@
   --sp-w:620px;        /* ← 銷售頁預覽框寬度 */
   --shrink:80%;        /* ← 縮小型圖片格（3D 產品素材）的寬度 */
   --head-gap:1.25rem;  /* ← 小節標題與底下圖片／內容的距離 */
+  --desc-w:56em;       /* ← 小節說明文的最大行寬（約 56 個中文字換行）*/
+  --text-w:44em;       /* ← 企劃說明等長段落的最大行寬 */
   --veil:.62;          /* ← 詳細頁的覆蓋層比首頁再白一點，讓標題好讀 */
 }
 
@@ -91,7 +93,7 @@ img{display:block;max-width:100%}
 .row{display:grid;grid-template-columns:130px 1fr;gap:2rem;padding:2.1rem 0;border-bottom:1px solid var(--line)}
 .row:first-of-type{padding-top:3rem}
 .row-lbl{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);padding-top:.2rem}
-.row-txt{font-size:.94rem;color:var(--ink-2);line-height:1.95;max-width:64ch}
+.row-txt{font-size:.94rem;color:var(--ink-2);line-height:1.95;max-width:var(--text-w)}
 .row-txt strong{color:var(--ink);font-weight:600}
 .chips{display:flex;gap:.5rem;flex-wrap:wrap}
 .whero .chips{justify-content:center;margin-top:1.45rem}
@@ -112,7 +114,7 @@ img{display:block;max-width:100%}
 .sgroup-bar{width:3px;height:1.05rem;border-radius:2px;background:var(--ink);flex-shrink:0}
 .sgroup-head h3{font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.4}
 .sgroup-head .note{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
-.sgroup-desc{font-size:.88rem;color:var(--ink-2);line-height:1.8;margin:.4rem 0 0 .95rem;max-width:62ch}
+.sgroup-desc{font-size:.88rem;color:var(--ink-2);line-height:1.8;margin:.4rem 0 0 .95rem;max-width:var(--desc-w)}
 
 /* 圖片格 */
 .grid{display:grid;gap:.9rem;margin-bottom:.5rem}
