@@ -137,7 +137,7 @@
         "type": "grid3",
         "label": { "zh": "商品視覺 / 廣告素材", "en": "Key Visuals / Ad Creatives" },
         "description": {
-          "zh": "作為使用AI的嘗試，此次將3D渲染圖放進了Gemini當中，並以提示詞要求結合渲染圖產出產品素材，最後使用Photoshop進行圖片編輯與排版設計。",
+          "zh": "作為使用AI的嘗試，此次將3D渲染圖放進了Gemini當中<br>以提示詞要求結合渲染圖產出產品素材，最後使用Photoshop進行圖片編輯與排版設計。",
           "en": "An experiment with AI in the workflow — I fed my own 3D renders into Gemini and prompted it to build out product scenes around them, then finished the editing and layout in Photoshop."
         },
         "images": [
@@ -394,7 +394,7 @@
       {
         "title": { "zh": "節日活動設計", "en": "Seasonal Campaign Visuals" },
         "description": {
-          "zh": "根據季節、節日等設計活動視覺圖，以清晰明瞭的視覺呈現優惠活動，用以吸引追蹤者的目光，並增加其轉換率",
+          "zh": "根據季節、節日等設計活動視覺圖，以清晰明瞭的視覺呈現優惠活動<br>用以吸引追蹤者的目光，並增加其轉換率",
           "en": "Campaign visuals for seasons and holidays, laying the offer out as plainly as possible to catch a follower's eye and lift conversion."
         },
         "columns": 3,
