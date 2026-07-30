@@ -20,6 +20,7 @@
   --max:1080px;
   --sp-w:620px;        /* ← 銷售頁預覽框寬度 */
   --shrink:80%;        /* ← 縮小型圖片格（3D 產品素材）的寬度 */
+  --head-gap:1.25rem;  /* ← 小節標題與底下圖片／內容的距離 */
   --veil:.62;          /* ← 詳細頁的覆蓋層比首頁再白一點，讓標題好讀 */
 }
 
@@ -104,14 +105,14 @@ img{display:block;max-width:100%}
 .psec-n{font-size:.7rem;letter-spacing:.1em;color:var(--ink-3);white-space:nowrap}
 
 /* 小節標題（直條，與首頁一致） */
-.sgroup{animation:fadeIn .45s ease both}
+.sgroup{animation:fadeIn .45s ease both;margin-bottom:var(--head-gap)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sgroup-head{display:flex;align-items:center;gap:.7rem;margin:2.5rem 0 .3rem}
+.sgroup-head{display:flex;align-items:center;gap:.7rem;margin:2.5rem 0 0}
 .psec+.sgroup .sgroup-head{margin-top:1.5rem}
 .sgroup-bar{width:3px;height:1.05rem;border-radius:2px;background:var(--ink);flex-shrink:0}
 .sgroup-head h3{font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.4}
 .sgroup-head .note{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
-.sgroup-desc{font-size:.88rem;color:var(--ink-2);line-height:1.8;margin:.2rem 0 1.15rem .95rem;max-width:62ch}
+.sgroup-desc{font-size:.88rem;color:var(--ink-2);line-height:1.8;margin:.4rem 0 0 .95rem;max-width:62ch}
 
 /* 圖片格 */
 .grid{display:grid;gap:.9rem;margin-bottom:.5rem}
