@@ -18,6 +18,8 @@
   --shadow-lg:0 2px 4px rgba(26,26,24,.05),0 18px 44px rgba(26,26,24,.11);
   --r:14px;
   --max:1080px;
+  --sp-w:620px;        /* ← 銷售頁預覽框寬度 */
+  --shrink:80%;        /* ← 縮小型圖片格（3D 產品素材）的寬度 */
   --veil:.62;          /* ← 詳細頁的覆蓋層比首頁再白一點，讓標題好讀 */
 }
 
@@ -113,6 +115,7 @@ img{display:block;max-width:100%}
 /* 圖片格 */
 .grid{display:grid;gap:.9rem;margin-bottom:.5rem}
 .grid+.grid{margin-top:1.8rem}
+.grid.shrink{max-width:var(--shrink);margin-left:auto;margin-right:auto}
 .grid.c1{grid-template-columns:1fr}
 .grid.c2{grid-template-columns:repeat(2,1fr)}
 .grid.c3{grid-template-columns:repeat(3,1fr)}
@@ -141,7 +144,7 @@ img{display:block;max-width:100%}
 .tile.long:hover .hint{opacity:0}
 
 /* 銷售頁瀏覽器框 */
-.sp{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);box-shadow:var(--shadow);margin-bottom:.5rem}
+.sp{max-width:var(--sp-w);margin:0 auto .5rem;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
 .sp-bar{display:flex;align-items:center;gap:.42rem;padding:.6rem .9rem;background:var(--bg);border-bottom:1px solid var(--line)}
 .sp-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .sp-url{flex:1;margin:0 .55rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.2rem .8rem;font-size:.72rem;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -234,6 +237,7 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
   .psec{padding-top:2.8rem}
   .grid{gap:.65rem}
   .grid.c4,.grid.c3{grid-template-columns:repeat(3,1fr)}
+  .grid.shrink{max-width:100%}
   .sp-body{height:420px}
   .tile.long{height:360px}
   .tile.long:hover img{transform:translateY(calc(-100% + 360px))}
@@ -241,6 +245,7 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
 @media(max-width:560px){
   .grid{gap:.45rem}
   .grid.c2{grid-template-columns:1fr}
+  .grid.c3,.grid.c4{grid-template-columns:repeat(2,1fr)}
   .tile{border-radius:10px}
   .lb-prev{left:.6rem}
   .lb-next{right:.6rem}
@@ -388,7 +393,7 @@ const sgroup = (title, note, desc) => `
     ${desc?`<p class="sgroup-desc">${desc}</p>`:''}
   </div>`;
 const tile = (src, alt, cls='sq') => `<a class="tile ${cls}" data-src="${src}"><img src="${src}" alt="${alt}" loading="lazy"></a>`;
-const grid = (imgs, cols, alt) => `<div class="grid c${cols}" data-lb>${imgs.map((s,i)=>tile(s, `${alt} ${i+1}`)).join('')}</div>`;
+const grid = (imgs, cols, alt, extra='') => `<div class="grid c${cols}${extra?' '+extra:''}" data-lb>${imgs.map((s,i)=>tile(s, `${alt} ${i+1}`)).join('')}</div>`;
 const wave = () => `
   <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
     <path d="M0,46 C240,4 380,74 720,44 C1060,14 1220,72 1440,34"/>
@@ -436,7 +441,7 @@ function section(sec){
           </div>
         </div>`;
     }
-    case 'grid2':      return head + grid(sec.images||[], 2, label);
+    case 'grid2':      return head + grid(sec.images||[], 2, label, 'shrink');
     case 'grid3':      return head + grid(sec.images||[], 3, label);
     case 'gridSquare': return head + grid(sec.images||[], 3, label);
     case 'copy':
