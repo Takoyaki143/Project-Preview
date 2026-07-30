@@ -121,33 +121,54 @@ img{display:block;max-width:100%}
 .fbtn.active{background:var(--ink);color:#fff}
 .fsep{color:var(--line);font-size:.9rem;user-select:none}
 
-/* ── SKILL 分組 ── */
-.sgrid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));
-  gap:1.25rem;align-items:start;
+/* ══ SKILL 分組 ══ */
+#skillGroups{display:flex;flex-direction:column;gap:3.4rem}
+.sgroup{animation:fadeIn .45s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.sgroup-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.15rem}
+.sgroup-bar{
+  width:3px;height:1.05rem;border-radius:2px;background:var(--ink);
+  flex-shrink:0;align-self:center;
 }
-.scard{
-  background:var(--surface);border:1px solid var(--line);border-radius:12px;
-  overflow:hidden;box-shadow:var(--shadow);
-  animation:fadeIn .4s ease both;
-  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;
+.sgroup-head h3{font-size:1.08rem;font-weight:700;letter-spacing:.01em;line-height:1.4}
+.sgroup-head .sgroup-en{
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;
 }
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.scard:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:#dcd8d1}
-.scard-img{aspect-ratio:4/3;overflow:hidden;background:#e4e0da}
-.scard-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
-.scard:hover .scard-img img{transform:scale(1.05)}
-.scard-body{padding:.9rem 1.05rem 1.05rem}
-.scard-cat{
-  display:block;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:.4rem;
+
+/* 縮圖列 */
+.srow{display:grid;gap:.9rem}
+.srow.c3{grid-template-columns:repeat(3,1fr)}
+.srow.c2{grid-template-columns:repeat(2,1fr)}
+.srow.vid{grid-template-columns:minmax(0,640px);justify-content:center}
+.stile{
+  position:relative;display:block;overflow:hidden;
+  background:#e4e0da;border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,border-color .4s;
 }
-.scard-body h4{font-size:.9rem;font-weight:700;margin-bottom:.25rem;line-height:1.5}
-.scard-body p{font-size:.78rem;color:var(--ink-2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.sempty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--ink-3);font-size:.85rem}
+.stile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:#dcd8d1}
+.stile img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.stile:hover img{transform:scale(1.05)}
+.stile.sq{aspect-ratio:1/1}
+.stile.wide{aspect-ratio:1920/700}
+.stile.vid{aspect-ratio:16/9}
+
+/* 查看全部 */
+.smore{display:flex;justify-content:flex-end;margin-top:1rem}
+.smore a{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.82rem;font-weight:600;color:var(--ink-2);letter-spacing:.05em;
+  padding:.2rem 0;border-bottom:1px solid transparent;transition:.25s;
+}
+.smore a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.smore a i{font-style:normal;transition:transform .3s}
+.smore a:hover i{transform:translateX(5px)}
+.sempty{text-align:center;padding:3rem 0;color:var(--ink-3);font-size:.85rem}
 
 /* ── 銷售頁：直式裁切 + hover 上捲 ── */
-.sales-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.sales-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
 .sales-card{
   --h:440px;
   position:relative;height:var(--h);overflow:hidden;
@@ -207,18 +228,23 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
   .hero{height:88svh;min-height:480px}
   .sec{padding:4rem 0 1rem}
   .wrap{padding:0 1.25rem}
-  .sgrid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  #skillGroups{gap:2.6rem}
+  .srow{gap:.65rem}
   .about,.contact{padding-top:6.5rem}
 }
 @media(max-width:560px){
   .pgrid{grid-template-columns:1fr}
+  .srow.c3{grid-template-columns:repeat(2,1fr)}
+  .srow.c2{grid-template-columns:1fr}
   .sales-grid{grid-template-columns:1fr}
   .sales-card{--h:380px}
 }
 @media(prefers-reduced-motion:reduce){
   .scroll-cue svg{animation:none}
+  .sgroup{animation:none}
   .sales-card img{transition:none}
   .sales-card:hover img{transform:none}
+  .stile:hover img{transform:none}
 }
 </style>
 </head>
@@ -274,21 +300,11 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
       <div class="wrap">
         <div class="sec-head">
           <h2>Skill</h2>
-          <p data-zh="依類別瀏覽　·　點擊任一張進入詳細說明" data-en="Browse by craft — click any card for the full breakdown">依類別瀏覽　·　點擊任一張進入詳細說明</p>
+          <p data-zh="依類別瀏覽　·　點擊縮圖或「查看全部」進入完整作品"
+             data-en="Browse by craft — open any thumbnail, or view the full set">依類別瀏覽　·　點擊縮圖或「查看全部」進入完整作品</p>
         </div>
         <div class="filter" id="filter"></div>
-        <div class="sgrid" id="skillGrid"></div>
-      </div>
-    </section>
-
-    <!-- SALES PAGE -->
-    <section class="sec" id="salesSec">
-      <div class="wrap">
-        <div class="sec-head">
-          <h2 data-zh="Sales Page" data-en="Sales Page">Sales Page</h2>
-          <p data-zh="長圖銷售頁　·　滑鼠移入可預覽全頁" data-en="Long-form sales pages — hover to preview the full scroll">長圖銷售頁　·　滑鼠移入可預覽全頁</p>
-        </div>
-        <div class="sales-grid" id="salesGrid"></div>
+        <div id="skillGroups"></div>
       </div>
     </section>
 
@@ -331,17 +347,79 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
 <footer><p>&copy; 2024 Yunting-Wu. All rights reserved.</p></footer>
 
 <script>
-/* ══ 可調設定 ══ */
-const DETAIL_PAGE = 'work.html';                 // 詳細頁檔名
-const GROUP_ORDER = ['graphic','3d','video'];    // 「全部」時的排列順序
-const SALES = {
-  id: 'Single-Page-3D-1',
-  items: [
-    { img:'images/Single-Page-full-3D_02.png', title:{zh:'銷售頁 02',en:'Sales Page 02'}, note:{zh:'全頁長圖',en:'Full page'} },
-    { img:'images/Single-Page-full-3D_03.png', title:{zh:'銷售頁 03',en:'Sales Page 03'}, note:{zh:'全頁長圖',en:'Full page'} },
-    { img:'images/Single-Page-full-3D_06.png', title:{zh:'銷售頁 04',en:'Sales Page 04'}, note:{zh:'全頁長圖',en:'Full page'} }
-  ]
-};
+/* ══════════ 可調設定 ══════════ */
+const DETAIL_PAGE  = 'work.html';                 // 詳細頁檔名
+const FILTER_ORDER = ['video','3d','graphic'];    // 篩選按鈕順序（all 固定在最前）
+
+/*
+  SKILL 分組設定 —— 這裡是唯一要維護的地方
+  id      : works.json 的 id（「查看全部」就是連到 work.html?id=這個值）
+  cat      : 對應篩選（video / 3d / graphic）
+  label    : 分組標題（沒填就自動抓 works.json 的 title 並去掉 ⮕）
+  layout   : sq 正方形三張 / wide 寬幅兩張 / video 置中預覽 / sales 長圖 hover 預覽
+  picks    : 縮圖（沒填就自動抓該作品的前幾張圖）
+  count    : 「查看全部 N 件」的 N（沒填就自動統計 works.json 的圖片／影片總數）
+*/
+const GROUPS = [
+  {
+    id:'3d-product-1', cat:'3d', layout:'sq',
+    label:{ zh:'產品3D建模', en:'3D Product Modeling' },
+    picks:[
+      'images/3D-deatil/3D_05/3D_05_deatil_02.jpg',
+      'images/3D-deatil/3D_02/3D_02_deatil_01.jpg',
+      'images/3D-deatil/3D_01/3D_01_deatil_02.jpg'
+    ]
+  },
+  {
+    id:'graphic-ad-1', cat:'graphic', layout:'sq',
+    label:{ zh:'廣告素材設計', en:'Ad Creative Design' },
+    picks:[
+      'images/FB-ad-4.jpg',
+      'images/FB-ad-1.jpg',
+      'images/graphic-ecommerce-3.png'
+    ]
+  },
+  {
+    id:'graphic-ecommerce-1', cat:'graphic', layout:'wide',
+    label:{ zh:'電商視覺設計', en:'E-commerce Visuals' },
+    picks:[
+      'images/banner_05.png',
+      'images/banner_02.jpg'
+    ]
+  },
+  {
+    id:'graphic-social-1', cat:'graphic', layout:'sq',
+    label:{ zh:'社群媒體設計', en:'Social Media Design' },
+    picks:[
+      'images/graphic-social/graphic-social-IG_4.jpg',
+      'images/IG/IG_1_01.png',
+      'images/LINE_02.png'
+    ]
+  },
+  {
+    id:'Draw-1', cat:'graphic', layout:'sq',
+    label:{ zh:'插畫創作', en:'Illustration' },
+    picks:[
+      'images/Draw/fluorite.png',
+      'images/Draw/loveis_1.png',
+      'images/Draw/cute_dog.png'
+    ]
+  },
+  {
+    id:'Single-Page-3D-1', cat:'graphic', layout:'sales',
+    label:{ zh:'銷售頁面設計', en:'Sales Page Design' },
+    picks:[
+      { img:'images/Single-Page-full-3D_02.png', title:{zh:'銷售頁 02',en:'Sales Page 02'}, note:{zh:'全頁長圖',en:'Full page'} },
+      { img:'images/Single-Page-full-3D_03.png', title:{zh:'銷售頁 03',en:'Sales Page 03'}, note:{zh:'全頁長圖',en:'Full page'} },
+      { img:'images/Single-Page-full-3D_06.png', title:{zh:'銷售頁 04',en:'Sales Page 04'}, note:{zh:'全頁長圖',en:'Full page'} }
+    ]
+  },
+  {
+    id:'video-edit-1', cat:'video', layout:'video',
+    label:{ zh:'影片剪輯', en:'Video Editing' },
+    picks:['images/video_0.png']
+  }
+];
 
 /* ══ i18n ══ */
 let lang = localStorage.getItem('lang') ||
@@ -352,8 +430,8 @@ const CAT = {
   en:{ all:'All',  graphic:'Visual Design', '3d':'3D', video:'Video' }
 };
 const UI = {
-  zh:{ hover:'HOVER 預覽', empty:'此分類尚無作品' },
-  en:{ hover:'HOVER',      empty:'Nothing here yet' }
+  zh:{ hover:'HOVER 預覽', empty:'此分類尚無作品', viewAll:n=>`查看全部 ${n} 件` },
+  en:{ hover:'HOVER',      empty:'Nothing here yet', viewAll:n=>`View all ${n}` }
 };
 
 function applyLang(){
@@ -375,6 +453,7 @@ document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=
 let works = [];
 let activeCat = 'all';
 const link = id => `${DETAIL_PAGE}?id=${encodeURIComponent(id)}`;
+const findWork = id => works.find(w=>w.id===id);
 
 async function load(){
   try{
@@ -390,7 +469,6 @@ function render(){
   buildProjects();
   buildFilter();
   buildSkills(activeCat);
-  buildSales();
 }
 
 /* ══ PROJECTS ══ */
@@ -415,8 +493,8 @@ function buildProjects(){
 
 /* ══ FILTER ══ */
 function buildFilter(){
-  const has = c => works.some(w=>w.type!=='project' && w.category===c);
-  const cats = ['all', ...GROUP_ORDER.filter(has)];
+  const has = c => GROUPS.some(g=>g.cat===c);
+  const cats = ['all', ...FILTER_ORDER.filter(has)];
   const box = document.getElementById('filter');
 
   box.innerHTML = cats.map((c,i)=>
@@ -431,41 +509,86 @@ function buildFilter(){
   });
 }
 
-/* ══ SKILL 卡片（不分組） ══ */
+/* ══ 件數統計（works.json 圖片／影片總數） ══ */
+function countItems(w){
+  if(!w) return 0;
+  let n = 0;
+  if(w.videos)  n += w.videos.length;
+  else if(w.video) n += 1;
+  if(w.images)  n += w.images.length;
+  if(w.carouselImages) n += w.carouselImages.length;
+  if(w.gridGallery && w.gridGallery.images) n += w.gridGallery.images.length;
+  (w.additionalGalleries || []).forEach(g => n += (g.images||[]).length);
+  (w.additionalCarousels || []).forEach(c => n += (c.images||[]).length);
+  return n;
+}
+
+/* 自動取圖：gridGallery → additionalGalleries → images */
+function autoPicks(w, max){
+  if(!w) return [];
+  let pool = [];
+  if(w.gridGallery && w.gridGallery.images) pool = pool.concat(w.gridGallery.images);
+  (w.additionalGalleries || []).forEach(g => pool = pool.concat(g.images||[]));
+  if(w.images) pool = pool.concat(w.images);
+  if(!pool.length && w.thumbnail) pool = [w.thumbnail];
+  return pool.slice(0, max);
+}
+
+/* ══ SKILL 分組 ══ */
 function buildSkills(cat){
-  const grid = document.getElementById('skillGrid');
-  const skills = works.filter(w=>w.type!=='project');
+  const box = document.getElementById('skillGroups');
+  const list = GROUPS.filter(g => cat==='all' || g.cat===cat);
 
-  const items = (cat==='all' ? skills : skills.filter(w=>w.category===cat))
-    .slice()
-    .sort((a,b)=>GROUP_ORDER.indexOf(a.category) - GROUP_ORDER.indexOf(b.category));
-
-  if(!items.length){
-    grid.innerHTML = `<p class="sempty">${UI[lang].empty}</p>`;
+  if(!list.length){
+    box.innerHTML = `<p class="sempty">${UI[lang].empty}</p>`;
     return;
   }
 
-  grid.innerHTML = items.map((w,i)=>`
-    <a class="scard" href="${link(w.id)}" style="animation-delay:${Math.min(i,10)*40}ms">
-      <div class="scard-img"><img src="${w.thumbnail||''}" alt="${t(w.title)}" loading="lazy"></div>
-      <div class="scard-body">
-        ${cat==='all' ? `<span class="scard-cat">${CAT[lang][w.category]||w.category}</span>` : ''}
-        <h4>${t(w.title)}</h4>
-        <p>${t(w.description)}</p>
-      </div>
-    </a>`).join('');
-}
+  box.innerHTML = list.map((g,i)=>{
+    const w     = findWork(g.id);
+    const n     = (g.count != null) ? g.count : countItems(w);
+    const title = t(g.label) || (w ? t(w.title).replace(/[⮕→]\s*$/,'').trim() : g.id);
+    const href  = link(g.id);
+    const delay = `animation-delay:${Math.min(i,8)*70}ms`;
 
-/* ══ SALES PAGE ══ */
-function buildSales(){
-  const grid = document.getElementById('salesGrid');
-  grid.innerHTML = SALES.items.map(s=>`
-    <a class="sales-card" href="${link(SALES.id)}">
-      <img src="${s.img}" alt="${t(s.title)}" loading="lazy">
-      <span class="sales-hint">${UI[lang].hover}</span>
-      <div class="sales-fade"></div>
-      <div class="sales-meta"><b>${t(s.title)}</b><span>${t(s.note)}</span></div>
-    </a>`).join('');
+    let row = '';
+
+    if(g.layout === 'sales'){
+      row = `<div class="sales-grid">` + (g.picks||[]).map(s=>`
+        <a class="sales-card" href="${href}">
+          <img src="${s.img}" alt="${title}" loading="lazy">
+          <span class="sales-hint">${UI[lang].hover}</span>
+          <div class="sales-fade"></div>
+          <div class="sales-meta"><b>${t(s.title)}</b><span>${t(s.note)}</span></div>
+        </a>`).join('') + `</div>`;
+
+    }else if(g.layout === 'video'){
+      const src = (g.picks && g.picks[0]) || (w && w.thumbnail) || '';
+      row = `<div class="srow vid">
+        <a class="stile vid" href="${href}"><img src="${src}" alt="${title}" loading="lazy"></a>
+      </div>`;
+
+    }else{
+      const wide  = g.layout === 'wide';
+      const max   = wide ? 2 : 3;
+      const picks = (g.picks && g.picks.length) ? g.picks.slice(0,max) : autoPicks(w,max);
+      row = `<div class="srow ${wide?'c2':'c3'}">` + picks.map(src=>`
+        <a class="stile ${wide?'wide':'sq'}" href="${href}"><img src="${src}" alt="${title}" loading="lazy"></a>
+      `).join('') + `</div>`;
+    }
+
+    return `
+      <div class="sgroup" style="${delay}">
+        <div class="sgroup-head">
+          <span class="sgroup-bar"></span>
+          <h3>${title}</h3>
+        </div>
+        ${row}
+        <div class="smore">
+          <a href="${href}">${UI[lang].viewAll(n)}<i>→</i></a>
+        </div>
+      </div>`;
+  }).join('');
 }
 
 /* ══ PANEL NAV ══ */
