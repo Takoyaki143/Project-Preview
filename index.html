@@ -18,6 +18,7 @@
   --shadow-lg:0 2px 4px rgba(26,26,24,.05),0 18px 44px rgba(26,26,24,.11);
   --r:14px;
   --max:1160px;
+  --srow-max:920px;    /* ← Skill 分組欄寬：縮圖維持 1:1，靠這個數字控制大小 */
   --veil:.46;          /* ← 白色覆蓋層濃度，唯一要調的數字 */
   --hero-img:url('images/Portfolio_info_images/index_banner.jpg');
 }
@@ -123,10 +124,14 @@ img{display:block;max-width:100%}
 
 /* ══ SKILL 分組 ══ */
 #skillGroups{display:flex;flex-direction:column;gap:3.4rem}
-.sgroup{animation:fadeIn .45s ease both}
+.sgroup{max-width:var(--srow-max);animation:fadeIn .45s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-.sgroup-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.15rem}
+.sgroup-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.35rem}
+.sgroup-desc{
+  font-size:.82rem;color:var(--ink-2);line-height:1.6;margin:0 0 1.05rem .95rem;
+  max-width:62ch;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+}
 .sgroup-bar{
   width:3px;height:1.05rem;border-radius:2px;background:var(--ink);
   flex-shrink:0;align-self:center;
@@ -141,7 +146,7 @@ img{display:block;max-width:100%}
 .srow{display:grid;gap:.9rem}
 .srow.c3{grid-template-columns:repeat(3,1fr)}
 .srow.c2{grid-template-columns:repeat(2,1fr)}
-.srow.vid{grid-template-columns:minmax(0,640px);justify-content:center}
+.srow.vid{grid-template-columns:minmax(0,620px);justify-content:center}
 .stile{
   position:relative;display:block;overflow:hidden;
   background:#e4e0da;border:1px solid var(--line);border-radius:var(--r);
@@ -170,7 +175,7 @@ img{display:block;max-width:100%}
 /* ── 銷售頁：直式裁切 + hover 上捲 ── */
 .sales-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
 .sales-card{
-  --h:440px;
+  --h:400px;
   position:relative;height:var(--h);overflow:hidden;
   border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
   box-shadow:var(--shadow);
@@ -234,10 +239,12 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
 }
 @media(max-width:560px){
   .pgrid{grid-template-columns:1fr}
-  .srow.c3{grid-template-columns:repeat(2,1fr)}
+  .srow{gap:.45rem}          /* 三欄維持不變，只收緊間距 */
+  .stile{border-radius:10px}
   .srow.c2{grid-template-columns:1fr}
-  .sales-grid{grid-template-columns:1fr}
+  .sales-grid{grid-template-columns:1fr;gap:.6rem}
   .sales-card{--h:380px}
+  .sgroup-desc{margin-left:.8rem;font-size:.78rem}
 }
 @media(prefers-reduced-motion:reduce){
   .scroll-cue svg{animation:none}
@@ -356,6 +363,7 @@ const FILTER_ORDER = ['video','3d','graphic'];    // 篩選按鈕順序（all �
   id      : works.json 的 id（「查看全部」就是連到 work.html?id=這個值）
   cat      : 對應篩選（video / 3d / graphic）
   label    : 分組標題（沒填就自動抓 works.json 的 title 並去掉 ⮕）
+  desc     : 標題下的一行說明（沒填就自動抓 works.json 的 description）
   layout   : sq 正方形三張 / wide 寬幅兩張 / video 置中預覽 / sales 長圖 hover 預覽
   picks    : 縮圖（沒填就自動抓該作品的前幾張圖）
   count    : 「查看全部 N 件」的 N（沒填就自動統計 works.json 的圖片／影片總數）
@@ -523,15 +531,16 @@ function countItems(w){
   return n;
 }
 
-/* 自動取圖：gridGallery → additionalGalleries → images */
-function autoPicks(w, max){
+/* 自動取圖：gridGallery → additionalGalleries → images，可排除已指定的圖 */
+function autoPicks(w, max, exclude){
   if(!w) return [];
+  const used = new Set(exclude || []);
   let pool = [];
   if(w.gridGallery && w.gridGallery.images) pool = pool.concat(w.gridGallery.images);
   (w.additionalGalleries || []).forEach(g => pool = pool.concat(g.images||[]));
   if(w.images) pool = pool.concat(w.images);
   if(!pool.length && w.thumbnail) pool = [w.thumbnail];
-  return pool.slice(0, max);
+  return pool.filter(src => !used.has(src)).slice(0, max);
 }
 
 /* ══ SKILL 分組 ══ */
@@ -544,10 +553,14 @@ function buildSkills(cat){
     return;
   }
 
+  /* 篩選後只剩一組時，正方形縮圖展開成 6 張，把版面撐起來 */
+  const solo = list.length === 1;
+
   box.innerHTML = list.map((g,i)=>{
     const w     = findWork(g.id);
     const n     = (g.count != null) ? g.count : countItems(w);
     const title = t(g.label) || (w ? t(w.title).replace(/[⮕→]\s*$/,'').trim() : g.id);
+    const desc  = t(g.desc) || (w ? t(w.description) : '');
     const href  = link(g.id);
     const delay = `animation-delay:${Math.min(i,8)*70}ms`;
 
@@ -569,9 +582,10 @@ function buildSkills(cat){
       </div>`;
 
     }else{
-      const wide  = g.layout === 'wide';
-      const max   = wide ? 2 : 3;
-      const picks = (g.picks && g.picks.length) ? g.picks.slice(0,max) : autoPicks(w,max);
+      const wide = g.layout === 'wide';
+      const max  = wide ? 2 : (solo ? 6 : 3);
+      let picks  = (g.picks && g.picks.length) ? g.picks.slice(0,max) : [];
+      if(picks.length < max) picks = picks.concat(autoPicks(w, max - picks.length, picks));
       row = `<div class="srow ${wide?'c2':'c3'}">` + picks.map(src=>`
         <a class="stile ${wide?'wide':'sq'}" href="${href}"><img src="${src}" alt="${title}" loading="lazy"></a>
       `).join('') + `</div>`;
@@ -583,6 +597,7 @@ function buildSkills(cat){
           <span class="sgroup-bar"></span>
           <h3>${title}</h3>
         </div>
+        ${desc ? `<p class="sgroup-desc">${desc}</p>` : ''}
         ${row}
         <div class="smore">
           <a href="${href}">${UI[lang].viewAll(n)}<i>→</i></a>
