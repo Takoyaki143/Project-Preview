@@ -473,6 +473,7 @@
       "en": "Drawing has always been part of my life. Much like trying on different design styles, I like letting the way I draw shift around — sometimes it's something I noticed during the day, sometimes it's a mood I can't quite name.<br>Mostly it's just how I keep track of things."
     },
     "category": "graphic",
+    "briefLabel": { "zh": "關於創作", "en": "About the work" },
     "thumbnail": "images/Draw/thumbnail_Draw.png",
     "emoji": "🎨",
     "gridGallery": {
