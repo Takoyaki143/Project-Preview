@@ -223,8 +223,8 @@
       "en": "Consumer electronics modeled for e-commerce listings and design assets"
     },
     "detailedDescription": {
-      "zh": "為電商平台打造的 產品 3D 模型，注重材質真實感與細節呈現。透過建模與燈光設計，讓產品在網頁上也能展現出更清晰的外型。",
-      "en": "3D product models built for e-commerce, with a focus on believable materials and fine detail. Careful modeling and lighting means the product reads clearly on screen — no photo shoot required."
+      "zh": "為電商平台打造的產品 3D 模型，注重材質真實感與細節呈現。透過建模與燈光設計，讓產品在網頁上也能展現出更清晰的外型。建模完成後，改色、改角度、換情境都不需要重新送樣拍攝。",
+      "en": "3D product models built for e-commerce, with attention to material believability and fine detail. Modeling and lighting do the work, so the product reads clearly on screen. And once the model exists, a colour change, a new angle or a different scene doesn't mean shipping another sample to a photographer."
     },
     "category": "3d",
     "thumbnail": "images/3D_01.png",
@@ -287,8 +287,8 @@
       "en": "Single-page product stories that get the point across fast"
     },
     "detailedDescription": {
-      "zh": "將產品濃縮成高轉換率的單頁銷售文案，結合消費者痛點與共鳴建立，打造吸睛與行動呼籲結合的銷售頁面",
-      "en": "Condensing a product into a single page that actually converts — leading with the problem the buyer already has, building some recognition, then landing on a call to action."
+      "zh": "把商品資訊排成一段有順序的說服流程：先讓人認出自己的痛點與需求，再帶出功能，最後才收到行動。一步步說服人按下購買。",
+      "en": "A sales page is an ordered argument, not a collage — first let someone recognise their own problem, then introduce the feature, and only then ask for the action. Step by step, up to the buy button."
     },
     "category": "graphic",
     "thumbnail": "images/Single Page-02.png",
@@ -312,12 +312,12 @@
       "en": "E-commerce Visuals ⮕"
     },
     "description": {
-      "zh": "產品主視覺、Banner 設計，提升轉換率",
-      "en": "Key visuals and banners built to lift conversion"
+      "zh": "產品主視覺、Banner 等，強化品牌一致的視覺形象。",
+      "en": "Key visuals and banners that keep the brand's look consistent"
     },
     "detailedDescription": {
-      "zh": "針對電商平台設計的視覺素材，包含產品主視覺、促銷 Banner、以及商品詳情頁設計。透過清晰的資訊架構與吸睛的視覺語言，提升點擊率與轉換率",
-      "en": "Visual assets made for e-commerce platforms — product key visuals, promo banners, and detail page layouts. Clear information hierarchy paired with visuals that stop the scroll, aimed at click-through and conversion."
+      "zh": "針對電商平台設計的視覺素材，包含產品主視覺、促銷 Banner、以及商品詳情頁設計。我會將視覺融合品牌調性，讓人在認識商品的同時也把品牌風格放進記憶，建立品牌印象。",
+      "en": "Visual assets for e-commerce platforms — product key visuals, promo banners, and detail page layouts. I keep the brand's tone inside the product visual, so learning what the product is and remembering who made it happen at the same time."
     },
     "category": "graphic",
     "thumbnail": "images/banner_0.png",
@@ -356,7 +356,6 @@
         ]
       }
     ],
-    "client": "啪哩啪哩%z%Z",
     "year": "2022-2026",
     "technologies": ["Illustrator", "Photoshop"]
   },
@@ -396,7 +395,7 @@
         "title": { "zh": "節日活動設計", "en": "Seasonal Campaign Visuals" },
         "description": {
           "zh": "根據季節、節日等設計活動視覺圖，以清晰明瞭的視覺呈現優惠活動，用以吸引追蹤者的目光，並增加其轉換率",
-          "en": "Campaign graphics tied to seasons and holidays. The offer has to be readable in a second — that's most of the job."
+          "en": "Campaign visuals for seasons and holidays, laying the offer out as plainly as possible to catch a follower's eye and lift conversion."
         },
         "columns": 3,
         "images": [
@@ -411,7 +410,7 @@
         "title": { "zh": "Instagram 貼文系列", "en": "Instagram Post Series" },
         "description": {
           "zh": "為品牌 IG 設計的「知識懶人包」，用於提高品牌互動、增加其他點擊率",
-          "en": "Explainer carousels for the brand's Instagram — the kind people actually save and share, which was the point."
+          "en": "Explainer carousels for the brand's Instagram, made to raise engagement and drive clicks elsewhere."
         },
         "columns": 3,
         "images": [
@@ -438,8 +437,8 @@
       "en": "Digital ad creatives built to each platform's spec"
     },
     "detailedDescription": {
-      "zh": "針對Facebook Ads、LINE Ads等數位廣告平台設計的素材，精準掌握各平台規格限制，並透過 A/B Testing 優化視覺表現",
-      "en": "Creatives for Facebook Ads, LINE Ads and similar platforms — each one built to spec, then refined through A/B testing to see what actually performs."
+      "zh": "同一組素材要同時適應 Facebook 與 LINE 的比例與文字面積限制。我的做法是先定一個可裁切的主視覺結構，再依各平台重排，而不是每個尺寸重畫一次。",
+      "en": "The same creative has to survive both Facebook's and LINE's aspect ratios and text-area limits. I build one key visual on a crop-safe structure and re-lay it out per platform, instead of redrawing it at every size."
     },
     "category": "graphic",
     "thumbnail": "images/graphic-ad-1.png",
@@ -466,7 +465,7 @@
       "en": "Illustration ⮕"
     },
     "description": {
-      "zh": "以興趣驅動的個人插畫創作，沒有特定主題",
+      "zh": "以興趣驅動的個人插畫創作",
       "en": "Personal illustration work — no particular theme, just whatever I feel like drawing"
     },
     "detailedDescription": {
