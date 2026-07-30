@@ -91,6 +91,7 @@ img{display:block;max-width:100%}
 .row-txt{font-size:.94rem;color:var(--ink-2);line-height:1.95;max-width:64ch}
 .row-txt strong{color:var(--ink);font-weight:600}
 .chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.whero .chips{justify-content:center;margin-top:1.45rem}
 .chip{padding:.4rem 1rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.83rem;color:var(--ink-2);transition:.25s}
 .chip:hover{border-color:var(--ink);color:var(--ink)}
 
@@ -287,14 +288,14 @@ const T = {
   zh:{
     notFound:'找不到這件作品', loadError:'作品資料載入失敗', noId:'網址沒有指定作品',
     oops:'糟糕', back:'回到作品集', scrollHint:'向下捲動看完整頁',
-    year:'年份', tools:'使用工具', overview:'企劃說明',
+    year:'年份', tools:'使用工具', overview:'企劃說明', brief:'設計說明',
     visual:'視覺內容', video:'影片', gallery:'作品一覽',
     items:n=>`${n} 件`, clips:n=>`${n} 支`, hover:'HOVER 預覽', zoom:'放大', more:'看看其他作品'
   },
   en:{
     notFound:'That work isn\u2019t here', loadError:'Couldn\u2019t load the work data', noId:'No work specified in the URL',
     oops:'Oops', back:'Back to work', scrollHint:'Scroll to see the full page',
-    year:'Year', tools:'Tools', overview:'Overview',
+    year:'Year', tools:'Tools', overview:'Overview', brief:'Approach',
     visual:'Visual', video:'Video', gallery:'Gallery',
     items:n=>`${n} items`, clips:n=>`${n} videos`, hover:'HOVER', zoom:'Zoom', more:'Browse other work'
   }
@@ -368,12 +369,24 @@ function hero(w){
 
   const meta = [w.year, catName(w.category)].filter(Boolean).join('　·　');
 
+  /* project：hero 放長段說明；skill：hero 放短句，長段移到下方「設計說明」 */
+  const isProject = w.type === 'project';
+  const lead = isProject
+    ? (t(w.detailedDescription) || t(w.description))
+    : (t(w.description) || t(w.detailedDescription));
+
+  /* skill 頁的使用工具改在 hero 呈現 */
+  const chips = (!isProject && (w.technologies||[]).length)
+    ? `<div class="chips">${w.technologies.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`
+    : '';
+
   return `
     <header class="whero">
       <div class="whero-in">
         <div class="tags">${tags.map((g,i)=>`<span class="tag${i===0?' hi':''}">${g}</span>`).join('')}</div>
         <h1>${clean(t(w.title))}</h1>
-        <p>${t(w.detailedDescription) || t(w.description)}</p>
+        <p>${lead}</p>
+        ${chips}
         ${meta ? `<div class="whero-meta">${meta}</div>` : ''}
       </div>
       <div class="hero-fade"></div>
@@ -460,10 +473,11 @@ function countImages(w){
 }
 
 function skillBody(w){
-  const tools = (w.technologies||[]).map(x=>`<span class="chip">${x}</span>`).join('');
   let out = '';
 
-  if(tools) out += row(L('tools'), `<div class="chips">${tools}</div>`);
+  /* 設計說明：標籤可用 briefLabel 逐頁覆寫（例：插畫頁 → 關於創作） */
+  if(w.detailedDescription)
+    out += row(t(w.briefLabel) || L('brief'), t(w.detailedDescription));
 
   /* 影片 */
   const videos = (w.videos && w.videos.length) ? w.videos : (w.video ? [{url:w.video}] : []);
