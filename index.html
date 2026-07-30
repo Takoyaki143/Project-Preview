@@ -203,14 +203,14 @@ img{display:block;max-width:100%}
 .panel{display:none}
 .panel.on{display:block}
 #about,#contact{position:relative;z-index:1;background:var(--bg);min-height:100svh}
-.about{max-width:720px;margin:0 auto;padding-top:8rem}
+.about{max-width:720px;margin:0 auto;padding:8rem 0 6rem}
 .about h2{font-size:2.2rem;font-weight:800;margin-bottom:2rem}
 .about p{color:var(--ink-2);font-size:1rem;margin-bottom:1.15rem;line-height:1.95}
 .about h3{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:3rem 0 1.1rem}
 .skills{display:flex;gap:.55rem;flex-wrap:wrap}
 .skill{padding:.42rem 1rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.83rem;color:var(--ink-2);transition:.25s}
 .skill:hover{border-color:var(--ink);color:var(--ink)}
-.contact{max-width:520px;margin:0 auto;padding-top:8rem;text-align:center}
+.contact{max-width:520px;margin:0 auto;padding:8rem 0 6rem;text-align:center}
 .contact h2{font-size:2.2rem;font-weight:800;margin-bottom:.8rem}
 .contact>p{color:var(--ink-2);margin-bottom:2.4rem}
 .clink{display:flex;align-items:center;justify-content:center;gap:.7rem;padding:1.05rem 2rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.95rem;transition:.3s;box-shadow:var(--shadow)}
@@ -236,7 +236,7 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
   #skillGroups{gap:2.6rem}
   .srow{gap:.65rem}
   .srow.c4{grid-template-columns:repeat(3,1fr)}   /* 四欄設定時，平板以下收成三欄 */
-  .about,.contact{padding-top:6.5rem}
+  .about,.contact{padding:6.5rem 0 4.5rem}
 }
 @media(max-width:560px){
   .pgrid{grid-template-columns:1fr}
@@ -263,9 +263,9 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#home" class="nav-link active" data-zh="作品" data-en="Work">作品展示</a>
-    <a href="#about" class="nav-link" data-zh="關於" data-en="About">關於我</a>
-    <a href="#contact" class="nav-link" data-zh="聯絡" data-en="Contact">聯絡方式</a>
+    <a href="#home" class="nav-link active" data-zh="作品集" data-en="Work">作品</a>
+    <a href="#about" class="nav-link" data-zh="關於我" data-en="About">關於</a>
+    <a href="#contact" class="nav-link" data-zh="聯絡方式" data-en="Contact">聯絡</a>
     <span class="nav-div"></span>
     <button class="lang-btn" data-lang="zh">中</button>
     <button class="lang-btn" data-lang="en">EN</button>
@@ -278,8 +278,11 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
   <div class="hero">
     <div class="hero-in">
       <h1>Yun's Portfolio</h1>
-      <p data-zh="視覺設計 · 3D 建模渲染 · 電商設計<br>五年 3C 電商視覺設計經驗，獨立負責品牌網站端的完整視覺素材。擅長結合 3D 建模、平面與動態設計產出行銷素材，同時熱愛創作，喜歡摸索各種設計題材或軟體，希望能替品牌設計最適合的作品。"
+      <p data-zh="視覺設計 · 3D 建模渲染 · 電商設計<br>
+      五年 3C 電商視覺設計經驗，獨立負責品牌網站端的完整視覺素材。<br>擅長結合 3D 建模、平面與動態設計產出行銷素材，同時熱愛創作，喜歡摸索各種設計題材或軟體，希望能替品牌設計最適合的作品。"
          data-en="Product visuals, 3D renders and video for consumer electronics — the kind of work that makes a listing worth clicking.">
+        視覺設計 · 3D 建模渲染 · 電商設計<br>
+      五年 3C 電商視覺設計經驗，獨立負責品牌網站端的完整視覺素材。<br>擅長結合 3D 建模、平面與動態設計產出行銷素材，同時熱愛創作，喜歡摸索各種設計題材或軟體，希望能替品牌設計最適合的作品。
       </p>
     </div>
     <div class="scroll-cue">
@@ -296,7 +299,8 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
       <div class="wrap">
         <div class="sec-head">
           <h2>Projects</h2>
-          <p data-zh="涵蓋產品 3D 渲染、品牌視覺設計與廣告素材製作等多元專案類型" data-en="Full case studies — strategy, visuals, launch"></p>
+          <p data-zh="涵蓋產品 3D 渲染、品牌視覺設計與廣告素材製作等多元專案類型" data-en="Full case studies — strategy, visuals, launch">涵蓋產品 3D 渲染、品牌視覺設計與廣告素材製作等多元專案類型
+</p>
         </div>
         <div class="pgrid" id="projectGrid"></div>
       </div>
@@ -308,7 +312,7 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
         <div class="sec-head">
           <h2>Skill</h2>
           <p data-zh="專注品牌視覺與電商視覺設計，擅長從細節中延展品牌調性"
-             data-en="Browse by craft — open any thumbnail, or view the full set"></p>
+             data-en="Browse by craft — open any thumbnail, or view the full set">依類別瀏覽　·　點擊縮圖或「查看全部」進入完整作品</p>
         </div>
         <div class="filter" id="filter"></div>
         <div id="skillGroups"></div>
@@ -327,9 +331,9 @@ footer{position:relative;z-index:1;background:var(--surface);border-top:1px soli
   <div class="wrap about">
     <h2 data-zh="關於我" data-en="About">關於我</h2>
     <p data-zh="嗨！我是 Yun。擁有五年 3C 電商領域的實務經驗，專注於視覺設計。"
-       data-en="Hi, I'm Yun — five years designing for consumer electronics e-commerce."></p>
+       data-en="Hi, I'm Yun — five years designing for consumer electronics e-commerce.">嗨！我是 Yun。擁有五年 3C 電商領域的實務經驗，專注於視覺設計。</p>
     <p data-zh="從品牌視覺、廣告素材到 3D 產品渲染都能一手包辦，擅長用 Adobe Creative Suite、Blender，把設計想法落地成畫面"
-       data-en="My work spans brand visuals, site management, ad creative and 3D product rendering, using Adobe CS and Blender with AI tools folded into the workflow."></p>
+       data-en="My work spans brand visuals, site management, ad creative and 3D product rendering, using Adobe CS and Blender with AI tools folded into the workflow.">從品牌視覺、廣告素材到 3D 產品渲染都能一手包辦，擅長用 Adobe Creative Suite、Blender，把設計想法落地成畫面</p>
     <h3>Skills</h3>
     <div class="skills">
       <span class="skill">Illustrator</span><span class="skill">Photoshop</span>
@@ -395,12 +399,21 @@ const GROUPS = [
     ]
   },
   {
+    id:'Single-Page-3D-1', cat:'graphic', layout:'sales',
+    label:{ zh:'一頁式商品介紹圖', en:'Single-Page Product Story' },
+    picks:[
+      { img:'images/Single-Page-full-3D_02.png', title:{zh:'銷售頁 02',en:'Sales Page 02'}, note:{zh:'全頁長圖',en:'Full page'} },
+      { img:'images/Single-Page-full-3D_03.png', title:{zh:'銷售頁 03',en:'Sales Page 03'}, note:{zh:'全頁長圖',en:'Full page'} },
+      { img:'images/Single-Page-full-3D_06.png', title:{zh:'銷售頁 04',en:'Sales Page 04'}, note:{zh:'全頁長圖',en:'Full page'} }
+    ]
+  },
+  {
     id:'graphic-social-1', cat:'graphic', layout:'sq',
     label:{ zh:'社群媒體設計', en:'Social Media Design' },
     picks:[
       'images/graphic-social/graphic-social-IG_4.jpg',
-      'images/IG/IG_1_01.png',
-      'images/LINE_02.png'
+      'images/graphic-social/graphic-social-IG_6.jpg',
+      'images/graphic-social/graphic-social-IG_8.jpg'
     ]
   },
   {
@@ -408,17 +421,8 @@ const GROUPS = [
     label:{ zh:'插畫創作', en:'Illustration' },
     picks:[
       'images/Draw/fluorite.png',
-      'images/Draw/loveis_1.png',
+      'images/Draw/wine.png',
       'images/Draw/cute_dog.png'
-    ]
-  },
-  {
-    id:'Single-Page-3D-1', cat:'graphic', layout:'sales',
-    label:{ zh:'銷售頁面設計', en:'Sales Page Design' },
-    picks:[
-      { img:'images/Single-Page-full-3D_02.png', title:{zh:'銷售頁 02',en:'Sales Page 02'}, note:{zh:'全頁長圖',en:'Full page'} },
-      { img:'images/Single-Page-full-3D_03.png', title:{zh:'銷售頁 03',en:'Sales Page 03'}, note:{zh:'全頁長圖',en:'Full page'} },
-      { img:'images/Single-Page-full-3D_06.png', title:{zh:'銷售頁 04',en:'Sales Page 04'}, note:{zh:'全頁長圖',en:'Full page'} }
     ]
   },
   {
